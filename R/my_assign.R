@@ -13,21 +13,15 @@
 
 "myAssign" <- function(x, y){
 
-  if (ifelse(dplyr::is_grouped_df(y), TRUE, base::class(y) == "data.frame") &
-      base::exists("data_lineage_log", envir = globalenv())){
+  if (ifelse(dplyr::is_grouped_df(y), TRUE, base::class(y) == "data.frame")){
 
-
-    base::assign("data_lineage_log",
-                 c(base::get("data_lineage_log", envir = globalenv()),
-                   base::paste0("ENVIRONMENT ",
-                                utils::capture.output(base::parent.frame(n = 5)),
-                                " >>> CREATE ",
-                                base::deparse(base::substitute(x)),
-                                " ###")),
-                 envir = globalenv())
+    lst_args <- base::list("", "", base::deparse(base::substitute(x)))
+    dtlngLog(lst_args = lst_args,
+             str_action = "CREATE",
+             int_pf = 5)
 
   }
 
+  base::invisible(base::assign(base::deparse(base::substitute(x)), y, envir = base::parent.frame()))
 
-  base::assign(base::deparse(base::substitute(x)), y, envir = base::parent.frame())
 }

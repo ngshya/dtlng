@@ -14,19 +14,10 @@
 group_by_ <- function(dtf_data, ...){
 
 
-    if(base::exists("data_lineage_log", envir = base::globalenv())){
-
-      base::assign("data_lineage_log",
-                   c(base::get("data_lineage_log", envir = base::globalenv()),
-                     base::paste0("ENVIRONMENT ",
-                                  utils::capture.output(base::parent.frame(n = 6)),
-                                  " >>> GROUP_BY ",
-                                  base::paste0(base::match.call()[-(1:2)],
-                                               collapse = " "),
-                                  " ###")),
-                   envir = base::globalenv())
-
-    }
+  lst_args <- base::as.list(base::match.call())
+  dtlngLog(lst_args = lst_args,
+           str_action = "GROUP_BY",
+           int_pf = 6)
 
 
   return(dplyr::group_by_(dtf_data, ...))

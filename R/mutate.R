@@ -13,26 +13,10 @@
 
 mutate_ <- function(dtf_data, ...){
 
-
-    if(base::exists("data_lineage_log", envir = base::globalenv())){
-
-      lst_args <- base::as.list(base::match.call())
-      str_variables <- base::names(lst_args)
-      str_values <- unlist(lst_args)
-      str_4_log <- paste0(paste(str_variables, str_values, sep = " = ")[c(-1, -2)],
-                          collapse = ", ")
-
-      base::assign("data_lineage_log",
-                   c(base::get("data_lineage_log", envir = base::globalenv()),
-                     base::paste0("ENVIRONMENT ",
-                                  utils::capture.output(base::parent.frame(n = 6)),
-                                  " >>> MUTATE ",
-                                  str_4_log,
-                                  " ###")),
-                   envir = base::globalenv())
-
-    }
-
+  lst_args <- base::as.list(base::match.call())
+  dtlngLog(lst_args = lst_args,
+           str_action = "MUTATE",
+           int_pf = 6)
 
   return(dplyr::mutate_(dtf_data, ...))
 }

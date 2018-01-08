@@ -13,22 +13,10 @@
 
 right_join <- function(dtf_data, ...){
 
-  if(base::exists("data_lineage_log", envir = globalenv())){
-
-    base::assign("data_lineage_log",
-                 c(base::get("data_lineage_log", envir = globalenv()),
-                   base::paste0("ENVIRONMENT ",
-                                utils::capture.output(base::parent.frame(n = 6)),
-                                " >>> RIGHT_JOIN ",
-                                gsub(pattern = '\"',
-                                     replacement = "",
-                                     base::paste0(base::match.call()[-(1:2)],
-                                                  collapse = " ")),
-                                " ###")),
-                 envir = globalenv())
-
-  }
-
+  lst_args <- base::as.list(base::match.call())
+  dtlngLog(lst_args = lst_args,
+           str_action = "RIGHT_JOIN",
+           int_pf = 6)
 
   return(dplyr::right_join(dtf_data, ...))
 }

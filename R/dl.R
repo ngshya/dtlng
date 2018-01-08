@@ -12,17 +12,12 @@
 
 dl <- function(x){
 
-  if(base::class(x) == "data.frame" &
-     base::exists("data_lineage_log", envir = base::globalenv()) ){
+  if(base::class(x) == "data.frame"){
 
-    base::assign("data_lineage_log",
-                 c(base::get("data_lineage_log", envir = base::globalenv()),
-                   base::paste0("ENVIRONMENT ",
-                                utils::capture.output(base::parent.frame(n = 5)),
-                                " >>> FROM ",
-                                base::deparse(base::substitute(x)),
-                                " ###")),
-                 envir = base::globalenv())
+    lst_args <- base::list("", "", base::deparse(base::substitute(x)))
+    dtlngLog(lst_args = lst_args,
+             str_action = "FROM",
+             int_pf = 5)
 
   }
 
