@@ -7,13 +7,13 @@ sampleF <- function(){
                            B = c(4, 5, 6, 5),
                            C = c(10, 20, 30, 40))
 
-  dtf_new %<-% dtlng::dl(dtf_data) %>%
+  dtf_new %<-% dtlng::from(dtf_data) %>%
     dtlng::select_("A", "B", "C") %>%
     dtlng::filter_(~(A > 0))
 
   x %<-% 1234
 
-  dtf_brand_new %<-% dtlng::dl(dtf_new) %>%
+  dtf_brand_new %<-% dtlng::from(dtf_new) %>%
     dtlng::select_("B", "A", "C") %>%
     dtlng::group_by_(~A, ~B) %>%
     dtlng::summarise_(D = ~sum(C)) %>%
@@ -42,4 +42,4 @@ dtf_out %<-% sampleF()
 
 
 
-dl(data.frame(A = c(1,2,3))) %>% select_("A")
+from(data.frame(A = c(1,2,3))) %>% select_("A")

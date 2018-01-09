@@ -10,7 +10,7 @@
 #' @export
 
 
-dl <- function(x){
+from <- function(x){
 
   if(base::class(x) == "data.frame"){
 
