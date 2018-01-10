@@ -9,10 +9,18 @@ startDataLineage <- function(){
     base::rm("data_lineage_log", envir = base::globalenv())
   }
   base::assign("data_lineage_log",
-               data.frame(ENV = "---",
-                          ACTION = "---",
-                          ARGUMENTS = "---",
-                          stringsAsFactors = FALSE),
+               data.frame(
+                 ID_DATAFRAME = "---",
+                 ID_COLUMN = "---",
+                 FROM_DATAFRAMES = "---",
+                 FROM_COLUMNS = "---",
+                 TO_DATAFRAMES = "---",
+                 TO_COLUMNS = "---",
+                 ACTION = "---",
+                 ARGUMENTS = "---",
+                 COLUMNS = "---",
+                 stringsAsFactors = FALSE
+               ),
                envir = globalenv())
   base::assign("%<-%", dtlng::myAssign, envir = globalenv())
 }

@@ -14,6 +14,12 @@
 select_ <- function(dtf_data, ...){
 
   lst_args <- base::as.list(base::match.call())
+  str_variables <- base::names(lst_args)
+  str_values <- unlist(lst_args)
+  str_4_log <- paste0(str_variables,
+                             ifelse(str_variables == "", "", "="),
+                             str_values)[c(-1, -2)]
+
   dtlngLog(lst_args = lst_args,
            str_action = "SELECT",
            int_pf = 6)

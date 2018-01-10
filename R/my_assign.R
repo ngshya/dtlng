@@ -18,7 +18,8 @@
     lst_args <- base::list("", "", base::deparse(base::substitute(x)))
     dtlngLog(lst_args = lst_args,
              str_action = "CREATE",
-             int_pf = 5)
+             int_pf = 5,
+             str_cols = base::colnames(y))
 
   }
 
