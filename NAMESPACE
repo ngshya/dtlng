@@ -2,7 +2,9 @@
 
 export(asDfi)
 export(dfi)
+export(full_join)
 export(getDfiId)
 export(newDfi)
 export(select_)
+importFrom(dplyr,full_join)
 importFrom(dplyr,select_)

@@ -1,12 +1,12 @@
 #' @export
 
-newDfi <- function(old_dfi,
+newDfi <- function(old_data_lineage,
                    new_dataframe,
                    new_name = "",
                    new_columns){
 
-  new_data_lineage <- old_dfi$data_lineage
   new_id <- dtlng::getDfiId()
+  new_data_lineage <- old_data_lineage
   new_data_lineage[[new_id]] <- base::list(
     name = new_name,
     columns = new_columns

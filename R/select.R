@@ -28,7 +28,7 @@ select_ = function(x, ...){
     )
   }
 
-  new_dfi <- dtlng::newDfi(old_dfi = x,
+  new_dfi <- dtlng::newDfi(old_data_lineage = data_lineage,
                            new_dataframe = dataframe,
                            new_name = "",
                            new_columns = new_columns)
