@@ -16,7 +16,12 @@ full_join = function(x, y, by, ...){
 
   str_r_cols_j <- by
   base::names(str_r_cols_j) <- NULL
-  str_l_cols_j <- ifelse(base::length(base::names(by)) == 0, str_r_cols_j, base::names(by))
+  if(base::length(base::names(by)) == 0){
+    str_l_cols_j <- str_r_cols_j
+    base::names(by) <- str_r_cols_j
+  } else {
+    str_l_cols_j <- base::names(by)
+  }
   str_l_cols_nj <- base::setdiff(base::names(x$dataframe), str_l_cols_j)
   str_r_cols_nj <- base::setdiff(base::names(y$dataframe), str_r_cols_j)
 
