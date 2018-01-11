@@ -1,28 +1,37 @@
 #' @title select_
-#' @description Select a subset of columns from a dataframe.
+#' @description Select columns from a dfi.
 #'
-#' @param dtf_data A dataframe.
-#' @param ... Arguments for the select_ function from dtplyr.
+#' @param x A dfi.
+#' @param ... Other arguments, see select_ from dplyr.
 #'
-#' @return The same dataframe in input but with selected columns.
+#' @return A dfi containing selected columns from the one in input.
 #'
-#' @importFrom utils capture.output
 #' @importFrom dplyr select_
 #'
 #' @export
 
-select_ <- function(dtf_data, ...){
+select_ = function(x, ...){
 
-  lst_args <- base::as.list(base::match.call())
-  str_variables <- base::names(lst_args)
-  str_values <- unlist(lst_args)
-  str_4_log <- paste0(str_variables,
-                             ifelse(str_variables == "", "", "="),
-                             str_values)[c(-1, -2)]
+  dataframe <- dplyr::select_(x$dataframe, ...)
 
-  dtlngLog(lst_args = lst_args,
-           str_action = "SELECT",
-           int_pf = 6)
+  data_lineage <- x$data_lineage
 
-  return(dplyr::select_(dtf_data, ...))
+  new_columns <- base::list()
+  for (str_col in base::names(dataframe)){
+    new_columns[[str_col]] <- base::list(
+      base::list(
+        from_dfi_id = x$id,
+        from_columns = c(str_col),
+        action = "SELECT",
+        comment = ""
+      )
+    )
+  }
+
+  new_dfi <- dtlng::newDfi(old_dfi = x,
+                           new_dataframe = dataframe,
+                           new_name = "",
+                           new_columns = new_columns)
+
+  base::return(new_dfi)
 }

@@ -4,16 +4,16 @@
 \alias{select_}
 \title{select_}
 \usage{
-select_(dtf_data, ...)
+select_(x, ...)
 }
 \arguments{
-\item{dtf_data}{A dataframe.}
+\item{x}{A dfi.}
 
-\item{...}{Arguments for the select_ function from dtplyr.}
+\item{...}{Other arguments, see select_ from dplyr.}
 }
 \value{
-The same dataframe in input but with selected columns.
+A dfi containing selected columns from the one in input.
 }
 \description{
-Select a subset of columns from a dataframe.
+Select columns from a dfi.
 }

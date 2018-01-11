@@ -1,6 +1,6 @@
 Package: dtlng
 Type: Package
-Title: Data Lineage from dtplyr
+Title: Data Lineage from dplyr
 Version: 0.0.1
 Author: Shuyi Yang
 Maintainer: Shuyi Yang <ngshya@gmail.com>
@@ -8,6 +8,6 @@ Description: Create data lineage automatically.
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: base, utils
-Imports: magrittr, dplyr
+Depends: base, utils, magrittr
+Imports: dplyr
 RoxygenNote: 6.0.1

@@ -1,52 +1,7 @@
-library(dplyr)
 library(dtlng)
 
-sampleF <- function(){
-
-  dtf_data %<-% data.frame(A = c(1, 2, 3, 2),
-                           B = c(4, 5, 6, 5),
-                           C = c(10, 20, 30, 40))
-
-  dtf_new %<-% (
-    dtlng::from(dtf_data) %>%
-      dtlng::select_("A", "B", "C") %>%
-      dtlng::filter_(~(A > 0)) %>%
-      dtlng::mutate_(Z = ~C)
-  )
-
-  x %<-% 1234
-
-  dtf_brand_new %<-% (
-    dtlng::from(dtf_new) %>%
-      dtlng::select_("B", "A", "C") %>%
-      dtlng::group_by_(~A, ~B) %>%
-      dtlng::summarise_(D = ~sum(C)) %>%
-      dtlng::mutate_(E = ~(A + B),
-                     F = ~(A + B)) %>%
-      dtlng::rename_(.dots = setNames("A", "NEW_A")) %>%
-      dtlng::left_join(dtf_data, by = c("B" = "B", "NEW_A" = "A")) %>%
-      dtlng::right_join(dtf_data, by = c("B" = "B")) %>%
-      dtlng::inner_join(dtf_data, by = c("B" = "B")) %>%
-      dtlng::full_join(dtf_data, by = c("B" = "B"))
-  )
-
-
-  return(dtlng::dlex(dtf_brand_new))
-
-}
-
-
-startDataLineage()
-
-
-
-
-# dtf_out %<-% dtlng::dlin(sampleF())
-
-dtf_start <- data.frame(A = 1:10, B = 11:20, C = 21:30)
-
-dtf_out %<-% (dtf_start %>% dtlng::select_("A", "B", "C"))
-
-
-
-# from(data.frame(A = c(1,2,3))) %>% select_("A")
+dtf <- data.frame(A = c(1,2,3), B = c(2,3,4), C = c(3,4,5))
+dfi1 <- asDfi(dtf)
+dfi2 <- dfi1 %>% select_("A", "C")
+dfi3 <- dfi1 %>% select_("A", "C") %>% select_("C")
+dfi4 <- dfi2 %>% select_("C")

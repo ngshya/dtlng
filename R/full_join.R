@@ -1,23 +1,37 @@
-#' @title full_join
-#' @description Full join between two dataframes.
+#' #' @title full_join
+#' #' @description Full join between two dfi.
+#' #'
+#' #' @param x A dfi.
+#' #' @param ... Other arguments, see full_join from dplyr.
+#' #'
+#' #' @return Full join result dfi.
+#' #'
+#' #' @importFrom dplyr full_join
+#' #'
+#' #' @export
 #'
-#' @param dtf_data A dataframe.
-#' @param ... Other arguments, see full_join from dtplyr.
+#' select_ = function(x, ...){
 #'
-#' @return Full join result dataframe.
+#'   dataframe <- dplyr::full_join(x$dataframe, ...)
 #'
-#' @importFrom utils capture.output
-#' @importFrom dplyr full_join
+#'   data_lineage <- x$data_lineage
 #'
-#' @export
-
-full_join <- function(dtf_data, ...){
-
-  lst_args <- base::as.list(base::match.call())
-  dtlngLog(lst_args = lst_args,
-           str_action = "FULL_JOIN",
-           int_pf = 6)
-
-
-  return(dplyr::full_join(dtf_data, ...))
-}
+#'   new_columns <- base::list()
+#'   for (str_col in base::names(dataframe)){
+#'     new_columns[[str_col]] <- base::list(
+#'       base::list(
+#'         from_dfi_id = x$id,
+#'         from_columns = c(str_col),
+#'         action = "SELECT",
+#'         comment = ""
+#'       )
+#'     )
+#'   }
+#'
+#'   new_dfi <- dtlng::newDfi(old_dfi = x,
+#'                            new_dataframe = dataframe,
+#'                            new_name = "",
+#'                            new_columns = new_columns)
+#'
+#'   base::return(new_dfi)
+#' }
