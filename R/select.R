@@ -22,7 +22,7 @@ select_ = function(x, ...){
     COLUMNS = base::names(dataframe),
     FROM_ID = x$id,
     FROM_COLUMNS = base::names(dataframe),
-    ACTION = "SELECT",
+    ACTION = "S",
     COMMENT = "",
     stringsAsFactors = FALSE
   )
