@@ -43,7 +43,7 @@ full_join = function(x, y, by, ...){
           COLUMNS = str_col,
           FROM_ID = x$id,
           FROM_COLUMNS = str_col,
-          ACTION = "FULL_JOIN",
+          ACTION =  base::paste("FJ", x$name, y$name),
           COMMENT = "LEFT DATAFRAME, NOT A JOIN COLUMN",
           stringsAsFactors = FALSE
         )
@@ -57,7 +57,7 @@ full_join = function(x, y, by, ...){
           COLUMNS = str_col,
           FROM_ID = y$id,
           FROM_COLUMNS = str_col,
-          ACTION = "FULL_JOIN",
+          ACTION =  base::paste("FJ", x$name, y$name),
           COMMENT = "RIGHT DATAFRAME, NOT A JOIN COLUMN",
           stringsAsFactors = FALSE
         )
@@ -71,7 +71,7 @@ full_join = function(x, y, by, ...){
           COLUMNS = str_col,
           FROM_ID = x$id,
           FROM_COLUMNS = str_col,
-          ACTION = "FULL_JOIN",
+          ACTION =  base::paste("FJ", x$name, y$name),
           COMMENT = "LEFT DATAFRAME, JOIN COLUMN",
           stringsAsFactors = FALSE
         )
@@ -83,7 +83,7 @@ full_join = function(x, y, by, ...){
           COLUMNS = str_col,
           FROM_ID = y$id,
           FROM_COLUMNS = c(base::as.character(by[str_col])),
-          ACTION = "FULL_JOIN",
+          ACTION = base::paste("FJ", x$name, y$name),
           COMMENT = "RIGHT DATAFRAME, JOIN COLUMN",
           stringsAsFactors = FALSE
         )
