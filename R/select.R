@@ -13,25 +13,24 @@
 select_ = function(x, ...){
 
   dataframe <- dplyr::select_(x$dataframe, ...)
+  new_id <- dtlng::getDfiId()
+  new_lng <- base::list()
 
-  data_lineage <- x$data_lineage
+  lng <- base::data.frame(
+    ID = new_id,
+    NAME = "",
+    COLUMNS = base::names(dataframe),
+    FROM_ID = x$id,
+    FROM_COLUMNS = base::names(dataframe),
+    ACTION = "SELECT",
+    COMMENT = "",
+    stringsAsFactors = FALSE
+  )
 
-  new_columns <- base::list()
-  for (str_col in base::names(dataframe)){
-    new_columns[[str_col]] <- base::list(
-      base::list(
-        from_dfi_id = x$id,
-        from_columns = c(str_col),
-        action = "SELECT",
-        comment = ""
-      )
-    )
-  }
-
-  new_dfi <- dtlng::newDfi(old_data_lineage = data_lineage,
-                           new_dataframe = dataframe,
+  new_dfi <- dtlng::newDfi(new_dataframe = dataframe,
+                           new_id = new_id,
                            new_name = "",
-                           new_columns = new_columns)
+                           new_lng = lng)
 
   base::return(new_dfi)
 }

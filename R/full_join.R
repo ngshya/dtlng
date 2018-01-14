@@ -30,55 +30,73 @@ full_join = function(x, y, by, ...){
   }
 
   dataframe <- dplyr::full_join(x$dataframe, y$dataframe, by = by, ...)
-
-  data_lineage <- c(x$data_lineage, y$data_lineage)[base::union(base::names(x$data_lineage), base::names(y$data_lineage))]
-
-    new_columns <- base::list()
+  new_id <- dtlng::getDfiId()
+  new_lng <- base::list()
   for (str_col in base::names(dataframe)){
 
     if(str_col %in% str_l_cols_nj){
-      new_columns[[str_col]] <- base::list(
-        base::list(
-          from_dfi_id = x$id,
-          from_columns = c(str_col),
-          action = "FULL_JOIN",
-          comment = "LEFT DATAFRAME, NOT A JOIN COLUMN"
+
+      new_lng[[length(new_lng)+1]] <-
+        base::data.frame(
+          ID = new_id,
+          NAME = "",
+          COLUMNS = str_col,
+          FROM_ID = x$id,
+          FROM_COLUMNS = str_col,
+          ACTION = "FULL_JOIN",
+          COMMENT = "LEFT DATAFRAME, NOT A JOIN COLUMN",
+          stringsAsFactors = FALSE
         )
-      )
+
     } else if (str_col %in% str_r_cols_nj) {
-      new_columns[[str_col]] <- base::list(
-        base::list(
-          from_dfi_id = y$id,
-          from_columns = c(str_col),
-          action = "FULL_JOIN",
-          comment = "RIGHT DATAFRAME, NOT A JOIN COLUMN"
+
+      new_lng[[length(new_lng)+1]] <-
+        base::data.frame(
+          ID = new_id,
+          NAME = "",
+          COLUMNS = str_col,
+          FROM_ID = y$id,
+          FROM_COLUMNS = str_col,
+          ACTION = "FULL_JOIN",
+          COMMENT = "RIGHT DATAFRAME, NOT A JOIN COLUMN",
+          stringsAsFactors = FALSE
         )
-      )
+
     } else if (str_col %in% str_l_cols_j){
-      new_columns[[str_col]] <- base::list(
-        base::list(
-          from_dfi_id = x$id,
-          from_columns = c(str_col),
-          action = "FULL_JOIN",
-          comment = "LEFT DATAFRAME, JOIN COLUMN"
-        ),
-        base::list(
-          from_dfi_id = y$id,
-          from_columns = c(base::as.character(by[str_col])),
-          action = "FULL_JOIN",
-          comment = "RIGHT DATAFRAME, JOIN COLUMN"
+
+      new_lng[[length(new_lng)+1]] <-
+        base::data.frame(
+          ID = new_id,
+          NAME = "",
+          COLUMNS = str_col,
+          FROM_ID = x$id,
+          FROM_COLUMNS = str_col,
+          ACTION = "FULL_JOIN",
+          COMMENT = "LEFT DATAFRAME, JOIN COLUMN",
+          stringsAsFactors = FALSE
         )
-      )
+
+      new_lng[[length(new_lng)+1]] <-
+        base::data.frame(
+          ID = new_id,
+          NAME = "",
+          COLUMNS = str_col,
+          FROM_ID = y$id,
+          FROM_COLUMNS = c(base::as.character(by[str_col])),
+          ACTION = "FULL_JOIN",
+          COMMENT = "RIGHT DATAFRAME, JOIN COLUMN",
+          stringsAsFactors = FALSE
+        )
+
     }
 
   }
+  new_lng <- base::do.call(rbind, new_lng)
 
-  new_dfi <- dtlng::newDfi(old_data_lineage = data_lineage,
-                           new_dataframe = dataframe,
+  new_dfi <- dtlng::newDfi(new_dataframe = dataframe,
+                           new_id = new_id,
                            new_name = "",
-                           new_columns = new_columns)
+                           new_lng = new_lng)
 
   base::return(new_dfi)
-
-  #return(dataframe)
 }
