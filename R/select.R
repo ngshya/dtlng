@@ -10,7 +10,7 @@
 #'
 #' @export
 
-select_ = function(x, ...){
+select_ <- function(x, ...){
 
   dataframe <- dplyr::select_(x$dataframe, ...)
   new_id <- dtlng::getDfiId()
