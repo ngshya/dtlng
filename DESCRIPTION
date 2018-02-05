@@ -11,3 +11,6 @@ LazyData: true
 Depends: base, utils, magrittr
 Imports: dplyr
 RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
