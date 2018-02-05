@@ -1,2 +1,2 @@
 # dtlng
-Data lineage from dtplyr/dplyr pipe syntax.  
+Data lineage from dplyr pipe syntax.  
